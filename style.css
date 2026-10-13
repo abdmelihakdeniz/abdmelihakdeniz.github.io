@@ -1,7 +1,6 @@
 /* ------------------------------------------------------------------
    abdmelihakdeniz — "lab bench" theme
-   Graph-paper ground, a universal-indicator (pH 1 → 13) stripe under
-   the header, indicator colours as the categorical palette, a benzene
+   Graph-paper ground, universal-indicator colours as the categorical palette, a benzene
    ring mark, and a normal distribution behind the hero quote.
    ------------------------------------------------------------------ */
 @import url("https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap");
@@ -73,19 +72,11 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 .container { max-width: 880px; margin: 0 auto; padding: 0 16px; }
 
-/* ---------- header + indicator strip ---------- */
+/* ---------- header ---------- */
 header.site {
   position: relative;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-}
-header.site::after {
-  /* a universal-indicator strip: pH 1 at the left, pH 13 at the right */
-  content: "";
-  position: absolute; left: 0; right: 0; bottom: -5px; height: 4px;
-  background: linear-gradient(90deg,
-    var(--ph-1), var(--ph-4) 28%, #d8c63a 40%, var(--ph-7) 52%,
-    #1e9a9a 64%, var(--ph-10) 78%, var(--ph-13));
 }
 
 header.site .container {
