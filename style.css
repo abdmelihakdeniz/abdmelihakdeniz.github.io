@@ -1,8 +1,8 @@
 /* ------------------------------------------------------------------
    abdmelihakdeniz — "lab bench" theme
-   Graph-paper ground, a sequencing-read stripe under the header,
-   nucleotide colours (A C G T) as the categorical palette, and a
-   normal distribution behind the hero quote.
+   Graph-paper ground, a universal-indicator (pH 1 → 13) stripe under
+   the header, indicator colours as the categorical palette, a benzene
+   ring mark, and a normal distribution behind the hero quote.
    ------------------------------------------------------------------ */
 @import url("https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap");
 
@@ -16,11 +16,12 @@
   --accent: #0e7c86;      /* agarose teal */
   --accent-soft: #dcefef;
 
-  /* nucleotides — Sanger chromatogram convention, G shifted to amber for legibility */
-  --nt-a: #2e9e49;
-  --nt-c: #2463c4;
-  --nt-g: #d9971c;
-  --nt-t: #d64545;
+  /* universal indicator: acid → neutral → base */
+  --ph-1: #d64545;
+  --ph-4: #e08a1e;
+  --ph-7: #2e9e49;
+  --ph-10: #2463c4;
+  --ph-13: #6a3fb8;
 
   --radius: 10px;
   --radius-sm: 6px;
@@ -38,10 +39,11 @@
     --border: #22323f;
     --accent: #4fc3c9;
     --accent-soft: #123139;
-    --nt-a: #57c46f;
-    --nt-c: #5b93ea;
-    --nt-g: #f0b445;
-    --nt-t: #ef6b6b;
+    --ph-1: #ef6b6b;
+    --ph-4: #f0a64a;
+    --ph-7: #57c46f;
+    --ph-10: #5b93ea;
+    --ph-13: #9d7bea;
   }
 }
 
@@ -71,26 +73,20 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 .container { max-width: 880px; margin: 0 auto; padding: 0 16px; }
 
-/* ---------- header + sequencing read ---------- */
+/* ---------- header + indicator strip ---------- */
 header.site {
   position: relative;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
 header.site::after {
-  /* an irregular A/C/G/T read, 160px period */
+  /* a universal-indicator strip: pH 1 at the left, pH 13 at the right */
   content: "";
   position: absolute; left: 0; right: 0; bottom: -5px; height: 4px;
   background: linear-gradient(90deg,
-    var(--nt-a) 0 14px,   var(--nt-t) 14px 20px,  var(--nt-g) 20px 38px,
-    var(--nt-c) 38px 44px, var(--nt-a) 44px 52px,  var(--nt-g) 52px 70px,
-    var(--nt-t) 70px 84px, var(--nt-c) 84px 90px,  var(--nt-c) 90px 102px,
-    var(--nt-a) 102px 108px, var(--nt-t) 108px 122px, var(--nt-g) 122px 128px,
-    var(--nt-c) 128px 146px, var(--nt-a) 146px 160px) 0 0 / 160px 100% repeat-x;
-  animation: read 48s linear infinite;
-  opacity: .9;
+    var(--ph-1), var(--ph-4) 28%, #d8c63a 40%, var(--ph-7) 52%,
+    #1e9a9a 64%, var(--ph-10) 78%, var(--ph-13));
 }
-@keyframes read { to { background-position: 160px 0; } }
 
 header.site .container {
   display: flex; align-items: center; justify-content: space-between;
@@ -101,11 +97,11 @@ header.site .container {
   font-weight: 600; color: var(--text); letter-spacing: -0.015em;
 }
 .brand::before {
-  /* tiny double helix */
-  content: ""; width: 16px; height: 22px; flex: none;
+  /* benzene ring */
+  content: ""; width: 22px; height: 22px; flex: none;
   background: var(--accent);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 22'%3E%3Cpath d='M2 1c0 5 12 5 12 10S2 16 2 21M14 1c0 5-12 5-12 10s12 5 12 10' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round'/%3E%3Cpath d='M4 4.5h8M4 17.5h8M6.5 8h3M6.5 14h3' stroke='black' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
-          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 22'%3E%3Cpath d='M2 1c0 5 12 5 12 10S2 16 2 21M14 1c0 5-12 5-12 10s12 5 12 10' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round'/%3E%3Cpath d='M4 4.5h8M4 17.5h8M6.5 8h3M6.5 14h3' stroke='black' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M11 1.5 19.2 6.25v9.5L11 20.5 2.8 15.75v-9.5Z' fill='none' stroke='black' stroke-width='1.8' stroke-linejoin='round'/%3E%3Ccircle cx='11' cy='11' r='4.6' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M11 1.5 19.2 6.25v9.5L11 20.5 2.8 15.75v-9.5Z' fill='none' stroke='black' stroke-width='1.8' stroke-linejoin='round'/%3E%3Ccircle cx='11' cy='11' r='4.6' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 .brand:hover { text-decoration: none; }
 .brand span { color: var(--accent); }
@@ -150,34 +146,40 @@ nav a.active { color: var(--text); font-weight: 600; box-shadow: inset 0 -2px 0 
 }
 .eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 
-/* ---------- cards as gel lanes ---------- */
+/* ---------- cards: indicator edge + a skeletal molecule ---------- */
 .cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 .card {
-  --lane: var(--nt-a);
+  --ind: var(--ph-7);
   position: relative; display: block;
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 18px 20px 16px 26px; color: var(--text);
+  border-radius: var(--radius); padding: 18px 20px 16px 24px; color: var(--text);
   overflow: hidden;
   transition: border-color .15s, box-shadow .15s;
 }
-.cards .card:nth-child(4n+2) { --lane: var(--nt-c); }
-.cards .card:nth-child(4n+3) { --lane: var(--nt-g); }
-.cards .card:nth-child(4n+4) { --lane: var(--nt-t); }
+.cards .card:nth-child(5n+2) { --ind: var(--ph-10); }
+.cards .card:nth-child(5n+3) { --ind: var(--ph-4); }
+.cards .card:nth-child(5n+4) { --ind: var(--ph-13); }
+.cards .card:nth-child(5n+5) { --ind: var(--ph-1); }
 .card::before {
-  /* the lane: a strip with "bands" at different migration distances */
-  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
-  background:
-    linear-gradient(var(--lane), var(--lane)) 0 22% / 100% 3px no-repeat,
-    linear-gradient(var(--lane), var(--lane)) 0 48% / 100% 5px no-repeat,
-    linear-gradient(var(--lane), var(--lane)) 0 71% / 100% 2px no-repeat,
-    color-mix(in srgb, var(--lane) 22%, transparent);
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--ind);
   transition: width .2s;
 }
-.card:hover {
-  border-color: var(--lane); text-decoration: none;
-  box-shadow: 0 1px 0 var(--border), 0 10px 24px -16px color-mix(in srgb, var(--lane) 60%, transparent);
+.card::after {
+  /* skeletal formula: two fused rings with a side chain */
+  content: ""; position: absolute; top: 12px; right: 12px; width: 76px; height: 52px;
+  background: var(--ind); opacity: .22; pointer-events: none;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 76 52'%3E%3Cg fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M14 8 26 15v14l-12 7-12-7V15Z'/%3E%3Cpath d='M26 15 38 8l12 7v14l-12 7-12-7'/%3E%3Cpath d='M50 15 62 8l12 7M62 8V1'/%3E%3Cpath d='M17.5 13.5 23 16.7M17.5 30.5 23 27.3M41.5 13.5 47 16.7M41.5 30.5 47 27.3M5 16.7v10.6'/%3E%3C/g%3E%3C/svg%3E") top right / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 76 52'%3E%3Cg fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M14 8 26 15v14l-12 7-12-7V15Z'/%3E%3Cpath d='M26 15 38 8l12 7v14l-12 7-12-7'/%3E%3Cpath d='M50 15 62 8l12 7M62 8V1'/%3E%3Cpath d='M17.5 13.5 23 16.7M17.5 30.5 23 27.3M41.5 13.5 47 16.7M41.5 30.5 47 27.3M5 16.7v10.6'/%3E%3C/g%3E%3C/svg%3E") top right / contain no-repeat;
+  transition: opacity .2s;
 }
-.card:hover::before { width: 8px; }
+.card:hover {
+  border-color: var(--ind); text-decoration: none;
+  box-shadow: 0 1px 0 var(--border), 0 10px 24px -16px color-mix(in srgb, var(--ind) 60%, transparent);
+}
+.card:hover::before { width: 6px; }
+.card:hover::after { opacity: .45; }
+.card > * { position: relative; }
 .card h3 { margin: 10px 0 6px; font-size: 18px; line-height: 1.3; letter-spacing: -0.015em; }
 .card p { margin: 0; color: var(--muted); font-size: 14px; }
 .card .meta {
@@ -230,7 +232,7 @@ button:hover { border-color: var(--accent); background: var(--accent-soft); }
 .bar-row { display: grid; grid-template-columns: 90px 1fr 48px; gap: 10px; align-items: center; font-size: 14px; }
 .bar { height: 12px; background: repeating-linear-gradient(90deg, var(--border) 0 1px, transparent 1px 10%), color-mix(in srgb, var(--border) 45%, transparent); border-radius: 3px; overflow: hidden; }
 .bar > i { display: block; height: 100%; background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 65%, transparent), var(--accent)); border-radius: 3px; transition: width .25s; }
-.ranking .bar-row:first-child .bar > i { background: linear-gradient(90deg, var(--nt-a), var(--accent)); }
+.ranking .bar-row:first-child .bar > i { background: linear-gradient(90deg, var(--ph-7), var(--accent)); }
 .bar-row b { text-align: right; font-family: var(--font-mono); font-weight: 500; font-variant-numeric: tabular-nums; }
 
 /* ---------- prose ---------- */
