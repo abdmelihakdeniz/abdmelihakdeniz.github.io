@@ -122,3 +122,8 @@ footer { color: var(--muted); font-size: 13px; padding: 40px 0 32px; border-top:
 .section-head h2 { font-size: 20px; margin: 0; letter-spacing: -0.01em; }
 .section-head a { font-size: 14px; }
 .lead { font-size: 17px; }
+
+blockquote.quote { margin: 0; padding: 0 0 0 18px; border-left: 3px solid var(--accent); border-radius: 0; }
+blockquote.quote p { font-family: Georgia, "Times New Roman", serif; font-size: 26px; line-height: 1.35; margin: 0 0 10px; letter-spacing: -0.01em; color: var(--text); max-width: 620px; }
+blockquote.quote cite { font-style: normal; font-size: 14px; color: var(--muted); }
+@media (max-width: 560px) { blockquote.quote p { font-size: 22px; } }

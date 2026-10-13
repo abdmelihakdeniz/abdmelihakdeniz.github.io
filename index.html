@@ -1,42 +1,44 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>abdmelihakdeniz</title>
-<meta name="description" content="Kişisel site: karar matrisleri ve çalışmalar.">
+<meta name="description" content="Decision matrices and data notes.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="site">
   <div class="container">
     <a class="brand" href="./">abdmelihakdeniz</a>
-    <nav><a class="active" href="./">Ana sayfa</a><a href="matrisler/">Matrisler</a></nav>
+    <nav><a class="active" href="./">Home</a><a href="matrices/">Matrices</a></nav>
   </div>
 </header>
 
 <main class="container">
   <section class="hero">
-    <h1>Merhaba</h1>
-    <p class="lead">Burada kararlarımı verirken kullandığım matrisleri ve üzerinde çalıştığım şeyleri paylaşıyorum.</p>
+    <blockquote class="quote">
+      <p>“All models are wrong, but some are useful.”</p>
+      <cite>— George E. P. Box</cite>
+    </blockquote>
   </section>
 
   <div class="section-head">
-    <h2>Matrisler</h2>
-    <a href="matrisler/">Tümü →</a>
+    <h2>Matrices</h2>
+    <a href="matrices/">View all →</a>
   </div>
   <div class="cards">
-    <a class="card" href="matrisler/iller.html">
-      <span class="tag">Şehir</span><span class="tag">Veri</span>
-      <h3>81 il: gelir, kira ve yaşam kalitesi</h3>
-      <p>TÜİK kişi başı GSYH ve TCMB kira verileriyle 81 ilin kadran grafiği.</p>
-      <div class="meta">Ekim 2026 · 81 il · TÜİK + TCMB</div>
+    <a class="card" href="matrices/provinces.html">
+      <span class="tag">Cities</span><span class="tag">Data</span>
+      <h3>81 provinces: income, rent and quality of life</h3>
+      <p>A quadrant chart of all 81 Turkish provinces using TÜİK GDP per capita and CBRT rent data.</p>
+      <div class="meta">October 2026 · 81 provinces · TÜİK + CBRT</div>
     </a>
-    <a class="card" href="matrisler/livability.html">
-      <span class="tag">Şehir</span><span class="tag">WADM</span>
-      <h3>Türkiye büyük şehirler: yaşanabilirlik</h3>
-      <p>İstanbul, Ankara, İzmir, Bursa, Antalya ve Eskişehir; 8 kriterde karşılaştırma.</p>
-      <div class="meta">Ekim 2026 · 6 şehir · 8 kriter</div>
+    <a class="card" href="matrices/livability.html">
+      <span class="tag">Cities</span><span class="tag">WADM</span>
+      <h3>Livability of Turkey's major cities</h3>
+      <p>Istanbul, Ankara, İzmir, Bursa, Antalya and Eskişehir compared across 8 criteria.</p>
+      <div class="meta">October 2026 · 6 cities · 8 criteria</div>
     </a>
   </div>
 </main>

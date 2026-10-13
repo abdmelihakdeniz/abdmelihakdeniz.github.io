@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Livability matrix · Matrices · abdmelihakdeniz</title>
+<meta name="description" content="A weighted decision matrix comparing Turkey's major cities across 8 criteria.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site">
+  <div class="container">
+    <a class="brand" href="../">abdmelihakdeniz</a>
+    <nav><a href="../">Home</a><a class="active" href="./">Matrices</a></nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <p class="crumb"><a href="./">Matrices</a> / Livability</p>
+    <h1>Livability of Turkey's major cities</h1>
+    <p>A weighted comparison of six major cities across 8 criteria. Scores run from 1 to 10, and 10 is always better (for cost of living, 10 = cheapest).</p>
+  </section>
+
+  <div class="eyebrow">Ranking</div>
+  <div class="panel"><div class="ranking" id="ranking"></div></div>
+
+  <div class="eyebrow">Matrix</div>
+  <div class="panel">
+    <div class="table-wrap">
+      <table>
+        <thead><tr id="head"></tr></thead>
+        <tbody id="body"></tbody>
+        <tfoot><tr id="foot"></tr></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="eyebrow">Weights</div>
+  <div class="panel">
+    <div class="weights">
+      <h2>Set your own priorities</h2>
+      <p>Sliders set relative importance; the total is rescaled to 100% automatically.</p>
+      <div id="weights"></div>
+      <div class="w-foot"><span id="sum"></span><button id="reset" type="button">Reset to default</button></div>
+    </div>
+  </div>
+
+  <section class="notes">
+    <h2>Why these scores</h2>
+    <ul>
+      <li><strong>Eskişehir:</strong> A compact city that is easy to get around by tram and high-speed train. Its large student population gives it a young, open atmosphere. Its weakness is a narrower range of jobs and amenities.</li>
+      <li><strong>İzmir:</strong> The most balanced big city. Low social pressure, strong on the sea and aesthetics. Costs have risen in recent years.</li>
+      <li><strong>Istanbul:</strong> Unmatched on amenities, with high anonymity. Cost, traffic and safety pull its score down.</li>
+      <li><strong>Ankara:</strong> Strong public-sector, education and healthcare infrastructure, and relatively affordable. Weak on aesthetics and walkability; a car-centric city.</li>
+      <li><strong>Antalya:</strong> The best on nature, but tourism has pushed rents very high. The job market is narrow and seasonal.</li>
+      <li><strong>Bursa:</strong> Strong industry and reasonable costs, but a more conservative social fabric and heavy traffic.</li>
+    </ul>
+    <h2>Method and limits</h2>
+    <p>Scores are qualitative estimates based on general knowledge, not published indices. The ranking is highly sensitive to the weights; for example, giving job opportunities a high weight pushes the industrial cities up.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="container"><a href="./">Matrices</a> · abdmelihakdeniz · October 2026</div>
+</footer>
+
+<script>
+const cities = ["Istanbul","Ankara","İzmir","Bursa","Antalya","Eskişehir"];
+const criteria = [
+  { name: "Cost of living",                 w: 20, s: [3,6,5,6,4,7] },
+  { name: "Safety",                         w: 15, s: [5,7,7,7,7,8] },
+  { name: "Amenities: jobs, culture, health", w: 15, s: [10,8,8,6,6,6] },
+  { name: "Human capital",                  w: 10, s: [9,9,8,6,6,8] },
+  { name: "Aesthetics / nature",            w: 10, s: [8,4,8,7,9,6] },
+  { name: "Privacy / social pressure",      w: 10, s: [8,7,9,5,7,8] },
+  { name: "Walkability",                    w: 10, s: [6,4,7,5,5,9] },
+  { name: "Ease of transport",              w: 10, s: [7,7,7,5,5,7] }
+];
+const defaults = criteria.map(c => c.w);
+const fmt = n => n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+document.getElementById("head").innerHTML =
+  `<th>Criterion <span class="w">(weight)</span></th>` + cities.map(c => `<th>${c}</th>`).join("");
+
+const wBox = document.getElementById("weights");
+criteria.forEach((c, i) => {
+  const row = document.createElement("div");
+  row.className = "w-row";
+  row.innerHTML = `<label for="w${i}">${c.name}</label>
+    <input id="w${i}" type="range" min="0" max="40" step="1" value="${c.w}">
+    <output id="o${i}"></output>`;
+  wBox.appendChild(row);
+  row.querySelector("input").addEventListener("input", e => { c.w = +e.target.value; render(); });
+});
+document.getElementById("reset").addEventListener("click", () => {
+  criteria.forEach((c, i) => { c.w = defaults[i]; document.getElementById("w" + i).value = c.w; });
+  render();
+});
+
+function render() {
+  const total = criteria.reduce((a, c) => a + c.w, 0) || 1;
+  const norm = criteria.map(c => c.w / total);
+  const scores = cities.map((_, j) => criteria.reduce((a, c, i) => a + c.s[j] * norm[i], 0));
+  const best = Math.max(...scores);
+
+  document.getElementById("body").innerHTML = criteria.map((c, i) => {
+    const mx = Math.max(...c.s);
+    return `<tr><td class="crit">${c.name}<span class="w">${Math.round(norm[i] * 100)}%</span></td>` +
+      c.s.map(v => `<td class="${v === mx ? "hi" : ""}">${v}</td>`).join("") + `</tr>`;
+  }).join("");
+
+  document.getElementById("foot").innerHTML = `<td>Weighted score</td>` +
+    scores.map(s => `<td class="score ${Math.abs(s - best) < 1e-9 ? "top" : ""}">${fmt(s)}</td>`).join("");
+
+  criteria.forEach((c, i) => { document.getElementById("o" + i).textContent = Math.round(norm[i] * 100) + "%"; });
+  document.getElementById("sum").textContent = "Raw total: " + total;
+
+  const order = cities.map((c, j) => ({ c, s: scores[j] })).sort((a, b) => b.s - a.s);
+  document.getElementById("ranking").innerHTML = order.map(o =>
+    `<div class="bar-row"><span>${o.c}</span><div class="bar"><i style="width:${o.s * 10}%"></i></div><b>${fmt(o.s)}</b></div>`
+  ).join("");
+}
+render();
+</script>
+</body>
+</html>
