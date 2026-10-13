@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>81 provinces: income, rent and quality of life · Matrices · abdmelihakdeniz</title>
-<meta name="description" content="A quadrant chart of Turkey's 81 provinces using TÜİK GDP per capita, TÜİK 2025 household income and CBRT Q4 2025 rent data.">
+<meta name="description" content="A quadrant chart of Turkey's 81 provinces using TÜİK GDP per capita and CBRT Q4 2025 rent data.">
 <link rel="stylesheet" href="../style.css">
 <style>
   .toggle { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 16px 20px 0; }
@@ -50,20 +50,6 @@
   </div>
 
 
-  <div class="callout">
-    <h2>Why do Muş and İzmir have the same rent burden?</h2>
-    <p>Muş looks cheap, but relative to local income it is about as hard to rent in as İzmir. Rent in Muş is about 40% of İzmir's, and household income in its region is about 43% of İzmir's.</p>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Province</th><th>Rent</th><th>Income / month</th><th>Rent share</th></tr></thead>
-      <tbody>
-        <tr><td>Muş</td><td>₺10,000</td><td>₺14,379</td><td>70%</td></tr>
-        <tr><td>İzmir</td><td>₺25,218</td><td>₺33,825</td><td>75%</td></tr>
-        <tr><td>Muğla</td><td>₺32,582</td><td>₺28,167–32,833</td><td>99–116%</td></tr>
-      </tbody>
-    </table></div>
-    <p>Rent is for a 100 m² home (CBRT, Q4 2025). Income is TÜİK's 2025 average equivalised household disposable income per person, divided by 12. Muş uses the Van–Muş–Bitlis–Hakkari region figure.</p>
-    <p>Muğla is different: its region's income is a little below İzmir's, but tourism and holiday-home demand push its rent about 29% higher, so rent takes more than a full month's per-person income.</p>
-  </div>
 
   <section class="notes">
     <h2>How to read it</h2>
@@ -76,13 +62,10 @@
       <li><strong>Most expensive:</strong> Istanbul (₺36,786), Muğla (₺32,582), İzmir (₺25,218), Çanakkale (₺23,550) and Antalya (₺23,090).</li>
       <li><strong>Cheapest:</strong> Mardin (₺9,400), Muş and Ağrı (₺10,000), Adıyaman (₺10,811) and Yozgat (₺11,000).</li>
       <li><strong>Best value:</strong> Eskişehir, Ankara and Kayseri pair below-average rent with above-median quality of life.</li>
-      <li><strong>Cheap is not the same as affordable:</strong> rents in the east are low, but so are incomes. See the box above.</li>
     </ul>
     <h2>Method</h2>
     <ul>
-      <li><strong>Rent (chart):</strong> CBRT unit rents for valued homes, Q4 2025, scaled to 100 m².</li>
-      <li><strong>Income (box above):</strong> TÜİK, Income and Living Conditions Survey 2025 (reference year 2024), average annual equivalised household disposable income per person, by NUTS-2 region (26 regions). Each province gets its region's value.</li>
-      <li><strong>Exact vs. range:</strong> TÜİK publishes the exact figure for only four regions: Ankara (₺449,618), Istanbul (₺434,929), İzmir (₺405,896) and Van–Muş–Bitlis–Hakkari (₺172,552). For the other 22 regions only a five-band map is published.</li>
+      <li><strong>Rent:</strong> CBRT unit rents for valued homes, Q4 2025, scaled to 100 m².</li>
     </ul>
     <h2>Limits</h2>
     <ul>
@@ -91,8 +74,6 @@
     </ul>
     <h2>Sources</h2>
     <ul class="sources">
-      <li>TÜİK: Income and Living Conditions Survey, 2025 (Gelir ve Yaşam Koşulları Araştırması), regional results</li>
-      <li><a href="https://www.mercekhaber.com/amp/haber/tuik-gelir-dagilimi-istatistikleri-aciklandi-gelir-esitsizligi-en-fazla-ic-anadoluda-1197.html">Mercek Haber: TÜİK 2025 household income by region (in Turkish)</a></li>
       <li><a href="https://www.haberturk.com/en-yuksek-kira-artisi-hangi-ilde-3862529-ekonomi">Habertürk: CBRT unit rents by province, Q4 2025, 74 provinces (in Turkish)</a></li>
       <li><a href="https://www.haberturk.com/turkiye-nin-en-zengin-illeri-belli-oldu-3844630-ekonomi">Habertürk: TÜİK 2024 GDP per capita by province, 81 provinces (in Turkish)</a></li>
     </ul>
