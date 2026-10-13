@@ -30,7 +30,7 @@
   <section class="hero">
     <p class="crumb"><a href="./">Matrices</a> / 81 provinces</p>
     <h1>81 provinces: income, rent and quality of life</h1>
-    <p>The x-axis uses real data: TÜİK's 2024 GDP per capita by province, and the Central Bank of Turkey's (CBRT) Q4 2025 rents for 74 provinces divided by TÜİK's 2025 household income for each province's region. Quality of life on the y-axis is a qualitative estimate based on criteria such as safety, amenities, privacy and walkability.</p>
+    <p>The x-axis uses real data: TÜİK's 2024 GDP per capita by province, and the Central Bank of Turkey's (CBRT) Q4 2025 average rents for 74 provinces. Quality of life on the y-axis is a qualitative estimate based on criteria such as safety, amenities, privacy and walkability.</p>
   </section>
 
   <div class="panel">
@@ -45,7 +45,7 @@
     <div id="info"></div>
     <div id="leg"></div>
     <div class="chart">
-      <canvas id="c" role="img" aria-label="Scatter chart: x-axis TÜİK GDP per capita or rent as a share of per-person income, y-axis estimated quality of life">Ankara, Istanbul and Kocaeli have the highest GDP per capita. Rent takes the smallest share of income in Yozgat, Kırşehir and Burdur, and the largest in Van, Muğla, Diyarbakır and Istanbul.</canvas>
+      <canvas id="c" role="img" aria-label="Scatter chart: x-axis TÜİK GDP per capita or CBRT monthly rent, y-axis estimated quality of life">Ankara, Istanbul and Kocaeli have the highest GDP per capita. Rent is highest in Istanbul, Muğla and İzmir, and lowest in Mardin, Muş and Ağrı.</canvas>
     </div>
   </div>
 
@@ -69,26 +69,24 @@
     <h2>How to read it</h2>
     <ul>
       <li><strong>Income view:</strong> Further right means a higher GDP per capita; higher up means better quality of life. Dashed lines mark the median of the 81 provinces.</li>
-      <li><strong>Rent view:</strong> The monthly rent for a 100 m² home as a share of one person's monthly income in that province's region. The dashed line is the Turkey average (81%). Further left means rent is easier to afford; the top-left quadrant is the best value.</li>
+      <li><strong>Rent view:</strong> Average monthly rent for a 100 m² home. The dashed line is the Turkey average (₺22,475). Further left means cheaper; the top-left quadrant is the best value (cheap and high quality).</li>
     </ul>
     <h2>Highlights</h2>
     <ul>
-      <li><strong>Most affordable:</strong> Yozgat (43%), Kırşehir and Burdur (45%), Kayseri and Aksaray (48%). Rents in Central Anatolia are low relative to regional income.</li>
-      <li><strong>Least affordable:</strong> Van (111%), Muğla (107%), Diyarbakır (102%) and Istanbul (101%). In Van and Diyarbakır incomes are very low; in Muğla and Istanbul rents are very high.</li>
-      <li><strong>Big cities:</strong> Ankara is the most affordable of the three (56%), İzmir sits near the average (75%), and Istanbul takes a full month's income (101%).</li>
-      <li><strong>Kocaeli:</strong> At 81% it is average. GDP per capita made Kocaeli look rich, but much of that output is industrial and doesn't reach household pockets.</li>
+      <li><strong>Most expensive:</strong> Istanbul (₺36,786), Muğla (₺32,582), İzmir (₺25,218), Çanakkale (₺23,550) and Antalya (₺23,090).</li>
+      <li><strong>Cheapest:</strong> Mardin (₺9,400), Muş and Ağrı (₺10,000), Adıyaman (₺10,811) and Yozgat (₺11,000).</li>
+      <li><strong>Best value:</strong> Eskişehir, Ankara and Kayseri pair below-average rent with above-median quality of life.</li>
+      <li><strong>Cheap is not the same as affordable:</strong> rents in the east are low, but so are incomes. See the box above.</li>
     </ul>
     <h2>Method</h2>
     <ul>
-      <li><strong>Rent:</strong> CBRT unit rents for valued homes, Q4 2025, scaled to 100 m².</li>
-      <li><strong>Income:</strong> TÜİK, Income and Living Conditions Survey 2025 (reference year 2024), average annual equivalised household disposable income per person, by NUTS-2 region (26 regions). Each province gets its region's value.</li>
-      <li><strong>Exact vs. range:</strong> TÜİK publishes the exact figure for only four regions: Ankara (₺449,618), Istanbul (₺434,929), İzmir (₺405,896) and Van–Muş–Bitlis–Hakkari (₺172,552). For the other 22 regions only a five-band map is published, so the band midpoint is used and the tooltip shows the resulting range (roughly ±8%).</li>
+      <li><strong>Rent (chart):</strong> CBRT unit rents for valued homes, Q4 2025, scaled to 100 m².</li>
+      <li><strong>Income (box above):</strong> TÜİK, Income and Living Conditions Survey 2025 (reference year 2024), average annual equivalised household disposable income per person, by NUTS-2 region (26 regions). Each province gets its region's value.</li>
+      <li><strong>Exact vs. range:</strong> TÜİK publishes the exact figure for only four regions: Ankara (₺449,618), Istanbul (₺434,929), İzmir (₺405,896) and Van–Muş–Bitlis–Hakkari (₺172,552). For the other 22 regions only a five-band map is published.</li>
     </ul>
     <h2>Limits</h2>
     <ul>
       <li>The CBRT does not publish rent data for 7 provinces (Ardahan, Bayburt, Bingöl, Gümüşhane, Hakkari, Şırnak, Tunceli); they appear only in the income view.</li>
-      <li>Provinces in the same region share one income figure, so differences between them come from rent alone.</li>
-      <li>A 100 m² home is a family-sized flat, while income is per person; shares above 100% do not mean nobody can afford rent, only that one person's income would not cover it.</li>
       <li>Quality of life on the y-axis is an estimate, not measured data.</li>
     </ul>
     <h2>Sources</h2>
@@ -125,7 +123,7 @@ const regOf=n=>Object.keys(REG).find(k=>REG[k].includes(n));
 function incOf(code){if(EXACT[code])return{v:EXACT[code],lo:EXACT[code],hi:EXACT[code],exact:true};const[lo,hi]=BIN[BINOF[code]];return{v:(lo+hi+1)/2,lo,hi,exact:false}}
 const glyph={circle:"●",rect:"■",triangle:"▲",rectRot:"◆",rectRounded:"▪",crossRot:"✕",star:"✱"};
 const major1=new Set(["Istanbul","Ankara","Kocaeli","İzmir","Antalya","Eskişehir","Muğla","Çanakkale","Tekirdağ","Tunceli","Bolu","Konya","Gaziantep","Diyarbakır","Şanlıurfa","Van","Hakkari","Erzurum"]);
-const major2=new Set(["Istanbul","Ankara","Kocaeli","İzmir","Antalya","Muğla","Van","Diyarbakır","Gaziantep","Muş","Kayseri","Yozgat","Eskişehir","Trabzon","Burdur","Bursa"]);
+const major2=new Set(["Istanbul","Ankara","Kocaeli","İzmir","Antalya","Muğla","Çanakkale","Diyarbakır","Muş","Mardin","Kayseri","Eskişehir","Trabzon","Bursa","Konya"]);
 const dark=matchMedia("(prefers-color-scheme: dark)").matches;
 const ink=dark?"#edece7":"#1b1b19",muted=dark?"#a3a29a":"#6a6963",grid=dark?"#34332f":"#e2e0d8";
 const all=[];Object.entries(R).forEach(([reg,[c,p,arr]])=>arr.forEach(a=>{const code=regOf(a[0]),inc=incOf(code),r=a[3]??null;all.push({n:a[0],g:a[1],q:a[2],r,reg,code,inc,ri:r?100*r/(inc.v/12):null,rlo:r?100*r/(inc.hi/12):null,rhi:r?100*r/(inc.lo/12):null})}));
@@ -137,7 +135,7 @@ const s=document.getElementById("sel");
 function fill(){const list=all.filter(a=>mode===1||a.r).map(a=>a.n).sort((a,b)=>a.localeCompare(b,"tr"));s.innerHTML='<option value="">Select…</option>'+list.map(n=>`<option${n===sel?" selected":""}>${n}</option>`).join("")}
 const fmt=n=>n.toLocaleString("en-US");
 const fx=(n,d)=>n.toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
-function ds(){return Object.entries(R).map(([reg,[col,ps]])=>{const pts=all.filter(a=>a.reg===reg&&(mode===1||a.r)).map(a=>({x:mode===1?a.g/1000:a.ri,y:a.q,n:a.n}));return{label:reg,pointStyle:ps,backgroundColor:col,borderColor:col,borderWidth:ps==="crossRot"||ps==="star"?2:1,pointRadius:4.5,pointHoverRadius:8,data:pts}})}
+function ds(){return Object.entries(R).map(([reg,[col,ps]])=>{const pts=all.filter(a=>a.reg===reg&&(mode===1||a.r)).map(a=>({x:mode===1?a.g/1000:a.r/1000,y:a.q,n:a.n}));return{label:reg,pointStyle:ps,backgroundColor:col,borderColor:col,borderWidth:ps==="crossRot"||ps==="star"?2:1,pointRadius:4.5,pointHoverRadius:8,data:pts}})}
 const Q={1:["Quality > income","Strong","Weak","Income > quality"],2:["Best value","Premium","Budget","Bad value"]};
 const quad={id:"quad",beforeDatasetsDraw(ch){const{ctx,chartArea:a,scales:{x,y}}=ch,px=x.getPixelForValue(mx),py=y.getPixelForValue(my),al=dark?0.16:0.2,L=Q[mode];
 const cols=mode===1?[`rgba(186,117,23,${al})`,`rgba(99,153,34,${al})`,`rgba(226,75,74,${al})`,`rgba(55,138,221,${al})`]:[`rgba(99,153,34,${al})`,`rgba(55,138,221,${al})`,`rgba(186,117,23,${al})`,`rgba(226,75,74,${al})`];
@@ -146,15 +144,15 @@ ctx.save();q.forEach(([X,Y,W,H,ha,va],i)=>{ctx.fillStyle=cols[i];ctx.fillRect(X,
 ctx.setLineDash([4,3]);ctx.strokeStyle=muted;ctx.beginPath();ctx.moveTo(px,a.top);ctx.lineTo(px,a.bottom);ctx.moveTo(a.left,py);ctx.lineTo(a.right,py);ctx.stroke();ctx.restore()}};
 const labels={id:"labels",afterDatasetsDraw(ch){const{ctx}=ch,M=mode===1?major1:major2;ctx.save();ctx.textBaseline="middle";ch.data.datasets.forEach((d,i)=>{ch.getDatasetMeta(i).data.forEach((p,j)=>{const n=d.data[j].n;if(!M.has(n)&&n!==sel)return;const hi=n===sel;ctx.font=(hi?"600 13px":"11px")+" system-ui,sans-serif";ctx.fillStyle=ink;const right=p.x<ch.chartArea.right-70;ctx.textAlign=right?"left":"right";ctx.fillText(n,p.x+(right?7:-7),p.y);if(hi){ctx.strokeStyle=ink;ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(p.x,p.y,10,0,7);ctx.stroke()}})});ctx.restore()}};
 const ch=new Chart(document.getElementById("c"),{type:"scatter",data:{datasets:[]},plugins:[quad,labels],options:{responsive:true,maintainAspectRatio:false,animation:false,layout:{padding:{right:6}},
-plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const a=all.find(z=>z.n===c.raw.n);return mode===1?`${a.n}: $${fmt(a.g)} · quality ${fx(a.q,2)}`:`${a.n}: rent = ${Math.round(a.ri)}% of income · quality ${fx(a.q,2)}`}}}},
+plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const a=all.find(z=>z.n===c.raw.n);return mode===1?`${a.n}: $${fmt(a.g)} · quality ${fx(a.q,2)}`:`${a.n}: rent ₺${fmt(a.r)} · quality ${fx(a.q,2)}`}}}},
 scales:{x:{grid:{color:grid},ticks:{color:muted,font:{size:11}},title:{display:true,color:muted,font:{size:12}}},y:{min:3.5,max:8,grid:{color:grid},ticks:{color:muted,font:{size:11}},title:{display:true,text:"Quality of life (estimated) →",color:muted,font:{size:12}}}},
 onClick:(e,els)=>{if(els.length){pick(ch.data.datasets[els[0].datasetIndex].data[els[0].index].n)}}}});
 function info(){const a=all.find(z=>z.n===sel),el=document.getElementById("info");
-if(!a){el.textContent=mode===1?"X: TÜİK 2024 GDP per capita (thousand $). Tap a point or pick a province from the list.":`X: rent for a 100 m² home as a share of monthly per-person income in the province's region. Dashed line = Turkey average (${TRAVG}%).`;return}
-el.textContent=`${a.n} (${a.reg}, ${a.code}) · GDP per capita $${fmt(a.g)} · household income ${a.inc.exact?"₺"+fmt(a.inc.v):"₺"+fmt(a.inc.lo)+"–"+fmt(a.inc.hi)}/yr`+(a.r?` · rent ₺${fmt(a.r)} = ${Math.round(a.ri)}% of monthly income`+(a.inc.exact?"":` (range ${Math.round(a.rlo)}–${Math.round(a.rhi)}%)`):" · no CBRT rent data (not published)")+` · quality ${fx(a.q,2)}`}
+if(!a){el.textContent=mode===1?"X: TÜİK 2024 GDP per capita (thousand $). Tap a point or pick a province from the list.":"X: average monthly rent for a 100 m² home (CBRT, Q4 2025). Dashed line = Turkey average (₺22,475).";return}
+el.textContent=`${a.n} (${a.reg}, ${a.code}) · GDP per capita $${fmt(a.g)}`+(a.r?` · rent ₺${fmt(a.r)} for 100 m²`:" · no CBRT rent data (not published)")+` · quality ${fx(a.q,2)}`}
 function setMode(m){mode=m;if(m===2&&sel&&!all.find(z=>z.n===sel).r)sel=null;
-const xs=all.filter(a=>m===1||a.r);mx=m===1?med(xs.map(a=>a.g/1000)):TRAVG;
-const xo=ch.options.scales.x;if(m===1){xo.min=4;xo.max=26;xo.ticks.callback=v=>v;xo.title.text="GDP per capita, thousand $ (TÜİK 2024) →"}else{xo.min=35;xo.max=120;xo.ticks.callback=v=>v+"%";xo.title.text="Rent as % of per-person income (TÜİK 2025) →"}
+const xs=all.filter(a=>m===1||a.r);mx=m===1?med(xs.map(a=>a.g/1000)):22.475;
+const xo=ch.options.scales.x;if(m===1){xo.min=4;xo.max=26;xo.ticks.stepSize=undefined;xo.ticks.callback=v=>v;xo.title.text="GDP per capita, thousand $ (TÜİK 2024) →"}else{xo.min=5;xo.max=40;xo.ticks.stepSize=5;xo.ticks.callback=v=>"₺"+v+"k";xo.title.text="Monthly rent, 100 m² (CBRT Q4 2025) →"}
 document.getElementById("m1").setAttribute("aria-pressed",m===1);document.getElementById("m2").setAttribute("aria-pressed",m===2);
 ch.data.datasets=ds();fill();info();ch.update()}
 function pick(n){sel=n||null;s.value=n||"";info();ch.update()}
