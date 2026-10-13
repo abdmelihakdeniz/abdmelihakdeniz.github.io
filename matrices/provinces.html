@@ -111,7 +111,7 @@ const glyph={circle:"●",rect:"■",triangle:"▲",rectRot:"◆",rectRounded:"�
 const major1=new Set(["Istanbul","Ankara","Kocaeli","İzmir","Antalya","Eskişehir","Muğla","Çanakkale","Tekirdağ","Tunceli","Bolu","Konya","Gaziantep","Diyarbakır","Şanlıurfa","Van","Hakkari","Erzurum"]);
 const major2=new Set(["Istanbul","Ankara","Kocaeli","İzmir","Antalya","Muğla","Bartın","Van","Şanlıurfa","Diyarbakır","Muş","Kayseri","Karaman","Eskişehir","Mardin","Trabzon"]);
 const dark=matchMedia("(prefers-color-scheme: dark)").matches;
-const ink=dark?"#edece7":"#1b1b19",muted=dark?"#a3a29a":"#6a6963",grid=dark?"#34332f":"#e2e0d8";
+const ink=dark?"#e3ecf1":"#14213d",muted=dark?"#93a3b5":"#5a6780",grid=dark?"#22323f":"#d3dce2";
 const all=[];Object.entries(R).forEach(([reg,[c,p,arr]])=>arr.forEach(a=>all.push({n:a[0],g:a[1],q:a[2],r:a[3]??null,reg,ri:a[3]?(a[3]/RTR)/(a[1]/GTR):null})));
 let mode=1,sel=null,mx=0;
 const med=v=>{const s=[...v].sort((a,b)=>a-b),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2};
